@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -25,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     ViewGroup pigeon_framelayout;
     ImageView pigeon_1;
     ImageView pigeon_2;
-    ImageView enemey1;
     ViewGroup pigeon_framelayout2;
     ViewGroup pigeon_framelayout3;
     ViewGroup pigeon_framelayout4;
@@ -41,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
     String save_name;
 
 
+// 적 관련 변수
+    TextView enemey_health;
+    public ImageView enemey_image;
+    TextView enemey_lv;
+    TextView enemey_name;
 
 
     @Override
@@ -58,32 +64,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        enemey1 = (ImageView) findViewById(R.id.enemey1);
+        enemey_image = (ImageView) findViewById(R.id.enemey_image);
         lv_text = (TextView) findViewById(R.id.lv_text);
         lv_plus_view = (TextView) findViewById(R.id.lv_plus_view);
 
         pigeon_1 = (ImageView) findViewById(R.id.pigeon_1);
-        pigeon_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO : click event
 
-                lv = lv + add_num;
-                lv_text.setText(lv + " 레벨");
-                lv_plus_view.setVisibility(View.VISIBLE);
-                new Handler().postDelayed(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        //여기에 딜레이 후 시작할 작업들을 입력
-
-                        lv_plus_view.setVisibility(View.INVISIBLE);
-                    }
-                }, 500);// 0.5초 정도 딜레이를 준 후 시작
-
-            }
-        });
         main_layout = (ViewGroup) findViewById(R.id.main_relative);
         pigeon_framelayout = (ViewGroup) findViewById(R.id.pigeon_framelayout);
         pigeon_framelayout2 = (ViewGroup) findViewById(R.id.pigeon_framelayout);
@@ -95,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Movable_Layout_Class new_movable_button = new Movable_Layout_Class(this, main_layout, pigeon_framelayout, location, "scale", false);
-        pigeon_framelayout.setVisibility( View.INVISIBLE);
+        pigeon_framelayout.setVisibility( View.VISIBLE);
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) pigeon_framelayout
                 .getLayoutParams();
         layoutParams.leftMargin = 100;
@@ -109,6 +95,20 @@ public class MainActivity extends AppCompatActivity {
         layoutParams2.leftMargin = 50;
         layoutParams2.topMargin = 100;
         pigeon_framelayout2.setLayoutParams(layoutParams2);
+
+        Movable_Layout_Class new_movable_button3 = new Movable_Layout_Class(this, main_layout, pigeon_framelayout3, location, "scale", false);
+        FrameLayout.LayoutParams layoutParams3 = (FrameLayout.LayoutParams) pigeon_framelayout3
+                .getLayoutParams();
+        layoutParams3.leftMargin = 50;
+        layoutParams3.topMargin = 100;
+        pigeon_framelayout3.setLayoutParams(layoutParams2);
+
+        Movable_Layout_Class new_movable_button4 = new Movable_Layout_Class(this, main_layout, pigeon_framelayout4, location, "scale", false);
+        FrameLayout.LayoutParams layoutParams4 = (FrameLayout.LayoutParams) pigeon_framelayout4
+                .getLayoutParams();
+        layoutParams4.leftMargin = 50;
+        layoutParams4.topMargin = 100;
+        pigeon_framelayout4.setLayoutParams(layoutParams2);
 
         function_1 = (Button) findViewById(R.id.function_1);
         function_1.setOnClickListener(new View.OnClickListener() {
@@ -126,17 +126,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO : click event
+                pigeon_framelayout.setVisibility(View.VISIBLE);
                 pigeon_framelayout2.setVisibility(View.VISIBLE);
-                click_time = click_time+1;
-                if(click_time == 1){
-                    pigeon_framelayout2.setVisibility(View.VISIBLE);
-                }else if(click_time ==2){
-                    pigeon_framelayout2.setVisibility(View.INVISIBLE);
-                    pigeon_framelayout3.setVisibility(View.VISIBLE);
-                }else if(click_time ==3){
-                    pigeon_framelayout3.setVisibility(View.INVISIBLE);
-                    pigeon_framelayout4.setVisibility(View.VISIBLE);
-                }
+
+                pigeon_framelayout3.setVisibility(View.VISIBLE);
+
+
+//                click_time = click_time+1;
+//                if(click_time == 1){
+//                    pigeon_framelayout2.setVisibility(View.VISIBLE);
+//                }else if(click_time ==2){
+//                    pigeon_framelayout2.setVisibility(View.INVISIBLE);
+//                    pigeon_framelayout3.setVisibility(View.VISIBLE);
+//                }else if(click_time ==3){
+//                    pigeon_framelayout3.setVisibility(View.INVISIBLE);
+//                    pigeon_framelayout4.setVisibility(View.VISIBLE);
+//                }
             }
         });
 
@@ -149,16 +154,84 @@ public class MainActivity extends AppCompatActivity {
         save_name = name.getText().toString();
 
 
+//        //원본 이미지 Bitmap
+//        Bitmap originalImg = BitmapFactory.decodeResource(getResources(), R.drawable.pigeon_1);
+////좌우반전 이미지 효과 및 Bitmap 만들기
+//        Matrix sideInversion = new Matrix();
+//        sideInversion.setScale(-1, 1);
+//        Bitmap sideInversionImg = Bitmap.createBitmap(originalImg, 0, 0,
+//                originalImg.getWidth(), originalImg.getHeight(), sideInversion, false);
+//        enemey_image.setImageBitmap(sideInversionImg);
+
+        enemey_health = (TextView) findViewById(R.id.enemey_health);
+        enemey_lv = (TextView) findViewById(R.id.enemey_level);
+        enemey_name = (TextView) findViewById(R.id.enemey_name);
+
+        Enemey_class enemey1_pigeon = new Enemey_class(100, "비둘기대왕", 1);
+        enemey_health.setText("체력 : "+ enemey1_pigeon.health + "");
+        enemey_name.setText(enemey1_pigeon.name);
+        enemey_lv.setText("lv : "+enemey1_pigeon.enemey_lv + "");
+
+        Enemey_class enemey2_cat = new Enemey_class(200, "길고양이",2);
+        enemey_health.setText("체력 : "+enemey2_cat.health+ "");
+        enemey_name.setText(enemey2_cat.name);
+        enemey_lv.setText("lv : "+enemey2_cat.enemey_lv + "");
+        enemey_image.setImageResource(R.drawable.cat);
+
         //원본 이미지 Bitmap
-        Bitmap originalImg = BitmapFactory.decodeResource(getResources(), R.drawable.pigeon_1);
+        Bitmap originalImg = BitmapFactory.decodeResource(getResources(), R.drawable.cat);
 //좌우반전 이미지 효과 및 Bitmap 만들기
         Matrix sideInversion = new Matrix();
         sideInversion.setScale(-1, 1);
         Bitmap sideInversionImg = Bitmap.createBitmap(originalImg, 0, 0,
                 originalImg.getWidth(), originalImg.getHeight(), sideInversion, false);
-        enemey1.setImageBitmap(sideInversionImg);
+        enemey_image.setImageBitmap(sideInversionImg);
 
 
+        pigeon_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO : click event
 
+//                lv = lv + add_num;
+//                lv_text.setText(lv + " 레벨");
+//                lv_plus_view.setVisibility(View.VISIBLE);
+//                new Handler().postDelayed(new Runnable()
+//                {
+//                    @Override
+//                    public void run()
+//                    {
+//                        //여기에 딜레이 후 시작할 작업들을 입력
+//
+//                        lv_plus_view.setVisibility(View.INVISIBLE);
+//                    }
+//                }, 500);// 0.5초 정도 딜레이를 준 후 시작
+
+//                enemey2_cat.health =  enemey2_cat.health - 10;
+
+            }
+        });
     }//oncree 끝
+
+    public void attack() {
+    }
+
+    class Enemey_class{
+        int health;
+        int enemey_lv;
+        String name;
+        ImageView character_img;
+        ImageView Img_effect;
+
+        private Enemey_class(int input_health, String input_name, int input_enemey_lv){
+            health = input_health;
+            name = input_name;
+            enemey_lv = input_enemey_lv;
+        }
+
+        void data_setting(){
+            health = health - 10;
+        }
+
+    }
 }

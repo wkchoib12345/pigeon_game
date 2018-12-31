@@ -122,8 +122,7 @@ public class Movable_Layout_Class {
 
 
 
-    public View.OnTouchListener onTouchListener() {
-        return new View.OnTouchListener() {
+    public View.OnTouchListener onTouchListener() { return new View.OnTouchListener() {
 
             @SuppressLint("ClickableViewAccessibility")
             @Override
@@ -149,7 +148,6 @@ public class Movable_Layout_Class {
 
                         case MotionEvent.ACTION_UP:
 //                        Toast.makeText(mainactivity_context,"thanks for new location!", Toast.LENGTH_SHORT).show();
-
 
 //saving _xy location
                             location_savaer = PreferenceManager.getDefaultSharedPreferences(mainactivity_context);
