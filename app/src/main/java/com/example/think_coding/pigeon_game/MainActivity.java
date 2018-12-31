@@ -207,11 +207,11 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                }, 500);// 0.5초 정도 딜레이를 준 후 시작
 
-//                enemey2_cat.health =  enemey2_cat.health - 10;
+                enemey2_cat.health =  enemey2_cat.health - 10;
 
             }
         });
-    }//oncree 끝
+    }//oncreate 끝
 
     public void attack() {
     }
