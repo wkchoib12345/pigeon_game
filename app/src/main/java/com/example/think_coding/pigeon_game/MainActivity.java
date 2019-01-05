@@ -4,6 +4,7 @@ import android.arch.core.executor.TaskExecutor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -48,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
     TextView enemey_lv;
     TextView enemey_name;
 
+
+    int now_enemey_health;
+    int now_enemey_lv;
+    Enemey_class enemey1_pigeon;
+    Enemey_class enemey2_cat;
+    Enemey_class enemey3_eagle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,25 +174,12 @@ public class MainActivity extends AppCompatActivity {
         enemey_lv = (TextView) findViewById(R.id.enemey_level);
         enemey_name = (TextView) findViewById(R.id.enemey_name);
 
-        Enemey_class enemey1_pigeon = new Enemey_class(100, "비둘기대왕", 1);
-        enemey_health.setText("체력 : "+ enemey1_pigeon.health + "");
-        enemey_name.setText(enemey1_pigeon.name);
-        enemey_lv.setText("lv : "+enemey1_pigeon.enemey_lv + "");
+        enemey1_pigeon = new Enemey_class(100, "비둘기대왕", 1);
+        enemey2_cat = new Enemey_class(200, "길고양이",2);
+        enemey3_eagle = new Enemey_class(500, "독수리", 3);
 
-        Enemey_class enemey2_cat = new Enemey_class(200, "길고양이",2);
-        enemey_health.setText("체력 : "+enemey2_cat.health+ "");
-        enemey_name.setText(enemey2_cat.name);
-        enemey_lv.setText("lv : "+enemey2_cat.enemey_lv + "");
-        enemey_image.setImageResource(R.drawable.cat);
+        change_enemey(enemey1_pigeon.health, enemey1_pigeon.name, enemey1_pigeon.enemey_lv);
 
-        //원본 이미지 Bitmap
-        Bitmap originalImg = BitmapFactory.decodeResource(getResources(), R.drawable.cat);
-//좌우반전 이미지 효과 및 Bitmap 만들기
-        Matrix sideInversion = new Matrix();
-        sideInversion.setScale(-1, 1);
-        Bitmap sideInversionImg = Bitmap.createBitmap(originalImg, 0, 0,
-                originalImg.getWidth(), originalImg.getHeight(), sideInversion, false);
-        enemey_image.setImageBitmap(sideInversionImg);
 
 
         pigeon_1.setOnClickListener(new View.OnClickListener() {
@@ -207,13 +201,50 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                }, 500);// 0.5초 정도 딜레이를 준 후 시작
 
-                enemey2_cat.health =  enemey2_cat.health - 10;
-
+//                enemey2_cat.health =  enemey2_cat.health - 10;
+                attack();
             }
         });
     }//oncreate 끝
 
-    public void attack() {
+    private void attack() {
+
+        if(enemey_image.getX()-pigeon_1.getX()<10){
+            now_enemey_health = now_enemey_health - 10;
+            enemey_health.setText("체력 : "+ now_enemey_health + "");
+        }
+        if(now_enemey_health == 0){
+            if(now_enemey_lv == 1) {
+                change_enemey(enemey2_cat.health, enemey2_cat.name, enemey2_cat.enemey_lv);
+            }else if(now_enemey_lv == 2){
+                change_enemey(enemey3_eagle.health, enemey3_eagle.name, enemey3_eagle.enemey_lv);
+            }
+        }
+    }
+
+    private void change_enemey(int health, String name,int level){
+        now_enemey_health = health;
+        now_enemey_lv = level;
+
+        enemey_health.setText("체력 : "+health+ "");
+        enemey_name.setText(name);
+        enemey_lv.setText("lv : "+level);
+
+        Bitmap originalImg = BitmapFactory.decodeResource(getResources(), R.drawable.pigeon_1);
+        if(level == 1) {
+            originalImg = BitmapFactory.decodeResource(getResources(), R.drawable.pigeon_1);
+        }else if(level == 2){
+            originalImg = BitmapFactory.decodeResource(getResources(), R.drawable.cat);
+        }else if(level == 3){
+            originalImg = BitmapFactory.decodeResource(getResources(), R.drawable.eagle);
+
+        }
+//좌우반전 이미지 효과 및 Bitmap 만들기
+        Matrix sideInversion = new Matrix();
+        sideInversion.setScale(-1, 1);
+        Bitmap sideInversionImg = Bitmap.createBitmap(originalImg, 0, 0,
+                originalImg.getWidth(), originalImg.getHeight(), sideInversion, false);
+        enemey_image.setImageBitmap(sideInversionImg);
     }
 
     class Enemey_class{
