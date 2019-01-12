@@ -1,4 +1,4 @@
-package com.example.think_coding.pigeon_game;
+package com.kim.think_coding.pigeon_game;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

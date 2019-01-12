@@ -1,12 +1,8 @@
-package com.example.think_coding.pigeon_game;
+package com.kim.think_coding.pigeon_game;
 
-import android.arch.core.executor.TaskExecutor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,15 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    ViewGroup main_layout;
+    ViewGroup main_layout_1;
     ViewGroup pigeon_framelayout;
     ImageView pigeon_1;
     ImageView pigeon_2;
@@ -77,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         pigeon_1 = (ImageView) findViewById(R.id.pigeon_1);
 
-        main_layout = (ViewGroup) findViewById(R.id.main_relative);
+        main_layout_1 = (ViewGroup) findViewById(R.id.main_relative);
         pigeon_framelayout = (ViewGroup) findViewById(R.id.pigeon_framelayout);
         pigeon_framelayout2 = (ViewGroup) findViewById(R.id.pigeon_framelayout);
         pigeon_framelayout3 = (ViewGroup) findViewById(R.id.pigeon_framelayout);
@@ -87,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         location[1] = "y";
 
 
-        Movable_Layout_Class new_movable_button = new Movable_Layout_Class(this, main_layout, pigeon_framelayout, location, "scale", false);
+        Movable_Layout_Class new_movable_button = new Movable_Layout_Class(this, main_layout_1, pigeon_framelayout, location, "scale", false);
         pigeon_framelayout.setVisibility( View.VISIBLE);
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) pigeon_framelayout
                 .getLayoutParams();
@@ -96,21 +89,21 @@ public class MainActivity extends AppCompatActivity {
         pigeon_framelayout.setLayoutParams(layoutParams);
 
 
-        Movable_Layout_Class new_movable_button2 = new Movable_Layout_Class(this, main_layout, pigeon_framelayout2, location, "scale", false);
+        Movable_Layout_Class new_movable_button2 = new Movable_Layout_Class(this, main_layout_1, pigeon_framelayout2, location, "scale", false);
         FrameLayout.LayoutParams layoutParams2 = (FrameLayout.LayoutParams) pigeon_framelayout2
                 .getLayoutParams();
         layoutParams2.leftMargin = 50;
         layoutParams2.topMargin = 100;
         pigeon_framelayout2.setLayoutParams(layoutParams2);
 
-        Movable_Layout_Class new_movable_button3 = new Movable_Layout_Class(this, main_layout, pigeon_framelayout3, location, "scale", false);
+        Movable_Layout_Class new_movable_button3 = new Movable_Layout_Class(this, main_layout_1, pigeon_framelayout3, location, "scale", false);
         FrameLayout.LayoutParams layoutParams3 = (FrameLayout.LayoutParams) pigeon_framelayout3
                 .getLayoutParams();
         layoutParams3.leftMargin = 50;
         layoutParams3.topMargin = 100;
         pigeon_framelayout3.setLayoutParams(layoutParams2);
 
-        Movable_Layout_Class new_movable_button4 = new Movable_Layout_Class(this, main_layout, pigeon_framelayout4, location, "scale", false);
+        Movable_Layout_Class new_movable_button4 = new Movable_Layout_Class(this, main_layout_1, pigeon_framelayout4, location, "scale", false);
         FrameLayout.LayoutParams layoutParams4 = (FrameLayout.LayoutParams) pigeon_framelayout4
                 .getLayoutParams();
         layoutParams4.leftMargin = 50;
